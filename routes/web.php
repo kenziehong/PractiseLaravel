@@ -251,3 +251,43 @@ Route::get('schema/create/product', function(){
 		$table->timestamps();
 	});
 });
+
+
+//Query Builder
+
+Route::get('query/select-all', function(){
+	$data=DB::table('product')->get();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+});
+
+Route::get('query/select-column', function(){
+	$data=DB::table('product')->select('name')->where('id',4)->get();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+});
+
+Route::get('query/select-whereor', function(){
+	$data=DB::table('product')->where('cate_id',1)->orwhere('id',4)->get();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+});
+
+Route::get('create/product1',function(){
+	Schema::create('product1',function($table){
+		$table->increments('id');
+		$table->string('name');
+		$table->integer('cate_id');
+		$table->timestamps();
+	});
+});
+
+Route::get('query/join',function(){
+	$data=DB::table('product1')->select('name','intro')->join('product2','product1.cate_id','=','product2.id')->get();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+});
