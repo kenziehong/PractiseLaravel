@@ -16,6 +16,8 @@ class CreateProduct2Table extends Migration
         Schema::create('product2', function (Blueprint $table) {
             $table->increments('id');
             $table->string('intro');
+            $table->integer('price');
+            $table->integer('cate_id');
             $table->timestamps();
         });
     }

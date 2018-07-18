@@ -291,3 +291,104 @@ Route::get('query/join',function(){
 	print_r($data);
 	echo"</pre>";
 });
+
+Route::get('query/insert', function(){
+	$data=DB::table('product2')->insert([
+		['intro'=>'Web'],
+		['intro'=>'MobileAdroid'],
+		['intro'=>'MobileIos'],
+	]);
+	echo $data;
+});
+
+Route::get('query/insert-get-id', function(){
+	$id=DB::table('product2')->insertGetId([
+		'intro'=>'Mobile'
+	]);
+	echo $id;
+});
+
+Route::get('query/update', function(){
+	DB::table('product2')->where('id','<',5)->update([
+		'intro'=>'Mobile'
+	]);
+	return "Update thanh cong";
+});
+
+Route::get('query/delete', function(){
+	DB::table('product2')->where('id','>',8)->delete();
+	return "Delete thanh cong";
+});
+
+Route::get('query/count', function(){
+	$count=DB::table('product2')->count();
+	return $count;
+});
+
+Route::get('query/min', function(){
+	$min=DB::table('product2')->min('id');//max,avg,sum tuong tu
+	return $min;
+});
+
+Route::get('model/select-all',function(){
+	$data=App\product2::all()->tojSon();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+});
+
+
+Route::get('model/select-id',function(){
+	$data=App\product2::find(2)->toArray();//findOrFail tra ve loi
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+});
+
+Route::get('model/take',function(){
+	$data=App\product2::where('intro','Mobile')->firstOrFail()->take(2)->get()->toArray();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+});
+
+Route::get('model/raw',function(App\product2 $product){
+	$data=$product::whereRaw('intro = ? AND id = ?',['Mobile',1])->select('intro')->get()->toArray();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+});
+
+//Them 2 cot vao product2, refresh lai, du lieu truoc do mat sach
+
+Route::get('model/insert1', function(){
+	$data = new App\product2;
+	$data->intro="Web A";
+	$data->price=20000;
+	$data->cate_id=2;
+	$data->save();
+	echo "Finish!!!";
+});
+
+
+
+//Bi loi: MassAssignmentException in Model.php line 444:intro, chua thuc hien duoc
+Route::get('model/insert2', function(){
+	$data=array(
+		'intro'=>'Mobile',
+		'price'=>50000,
+		'cate_id'=>1
+	);
+	App\product2::create($data);
+});
+
+Route::get('model/update', function(){
+	$data=App\product2::find(1);
+	$data->price=30000;
+	$data->save();
+});
+
+Route::get('model/destroy', function(){
+
+	App\product2::destroy(1);
+});
