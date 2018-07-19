@@ -363,9 +363,9 @@ Route::get('model/raw',function(App\product2 $product){
 
 Route::get('model/insert1', function(){
 	$data = new App\product2;
-	$data->intro="Web A";
+	$data->intro="Web B";
 	$data->price=20000;
-	$data->cate_id=2;
+	$data->cate_id=1;
 	$data->save();
 	echo "Finish!!!";
 });
@@ -375,20 +375,49 @@ Route::get('model/insert1', function(){
 //Bi loi: MassAssignmentException in Model.php line 444:intro, chua thuc hien duoc
 Route::get('model/insert2', function(){
 	$data=array(
-		'intro'=>'Mobile',
+		'intro'=>'Web B',
 		'price'=>50000,
-		'cate_id'=>1
+		'cate_id'=>2
 	);
 	App\product2::create($data);
-});
-
-Route::get('model/update', function(){
-	$data=App\product2::find(1);
-	$data->price=30000;
-	$data->save();
 });
 
 Route::get('model/destroy', function(){
 
 	App\product2::destroy(1);
 });
+
+
+Route::get('relation/one-many-1', function(){
+	$data=App\product2::find(1)->images()->get()->toArray();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+});
+
+Route::get('schema/change_name_column', function(){
+	Schema::table('car_colors', function ($table) {
+    $table->renameColumn('color_id', 'colors_id');
+});
+});
+
+Route::get('relation/one-many-2', function(){
+	$data=App\images::find(1)->product2()->get()->toArray();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+});
+
+Route::get('relation/many-many-1', function(){
+	$data=App\cars::find(4)->colors()->get()->toArray();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+}); 
+
+Route::get('relation/many-many-2', function(){
+	$data=App\colors::find(4)->cars()->select('name')->get()->toArray();
+	echo"<pre>";
+	print_r($data);
+	echo"</pre>";
+}); 
