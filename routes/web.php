@@ -421,3 +421,16 @@ Route::get('relation/many-many-2', function(){
 	print_r($data);
 	echo"</pre>";
 }); 
+
+Route::get('form/layout', function (){
+	return view('form.layout');
+});
+
+
+//Bai 36
+Route::get('form/dang-ky', function(){
+	return view('form.dangky');
+});
+
+Route::post('form/dang-ky-thanh-vien',['as'=>'postDangKy','uses'=>'KhoaPhamController@them']);
+Route::any('{all?}','HomeController@showWelcome')->where('all','(.*)');

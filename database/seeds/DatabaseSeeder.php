@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call('ColorTableSeeder');
+        $this->call('KPTKhoaPhamTableSeeder');
     }
 }
 
@@ -102,6 +102,19 @@ Class CarColorTableSeeder extends Seeder{
 			['car_id'=>4,'color_id'=>4],
 			['car_id'=>4,'color_id'=>3],
 			['car_id'=>5,'color_id'=>4],
+					
+		]);
+	}
+}
+
+Class KPTKhoaPhamTableSeeder extends Seeder{
+	public function run(){
+		DB::table('kpt_khoaphams')->insert([
+			['monhoc'=>'Lap trinh PHP','giatien'=>20000,'giangvien'=>'Mr Tuan'],
+			['monhoc'=>'Lap trinh JAVA','giatien'=>21000,'giangvien'=>'Ms Ngoc'],
+			['monhoc'=>'Lap trinh RUBY','giatien'=>22000,'giangvien'=>'Mr Tuan'],
+			['monhoc'=>'Lap trinh PYTHON','giatien'=>23000,'giangvien'=>'Ms Ngoc'],
+			
 					
 		]);
 	}
