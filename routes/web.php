@@ -433,4 +433,72 @@ Route::get('form/dang-ky', function(){
 });
 
 Route::post('form/dang-ky-thanh-vien',['as'=>'postDangKy','uses'=>'KhoaPhamController@them']);
-Route::any('{all?}','HomeController@showWelcome')->where('all','(.*)');
+// Route::any('{all?}','HomeController@showWelcome')->where('all','(.*)');
+
+//Bai 42 - tim hieu ve Response
+
+Route::get('response/basic',function(){
+	return "Dao tao tin hoc khoa pham";
+});
+
+Route::get('response/json',function(){
+	$arr=array(
+		'monhoc'=>'Laravel Framework 5.x',
+		'giang vien'=>'Mr Vu Quoc Tuan',
+		'thoi gian'=>'2 thang'
+	);
+	return Response::json($arr);
+});
+
+//khong duoc ' <?xml
+Route::get('response/xml', function(){
+	$content = '<?xml version="1.0" encoding="UTF-8"?> 
+	<root>
+		<trungtam>Khoa Pham Training</trungtam>
+		<danhsach>
+			<monhoc>Lap trinh PHP</monhoc>
+			<monhoc>Lap trinh Java</monhoc>
+		</danhsach>
+	</root>
+	';
+
+	$status=200;
+	$value='text/xml';
+	return response($content,$status)->header('Content-Type',$value);
+});
+
+
+Route::get('response/demo',['as'=>'resdemo',function(){
+	return view('response.demo');
+}]);
+
+Route::get('response/redirect',function(){
+	// return redirect('response/json');
+	return redirect()->route('resdemo')->with([
+		'level'=>'inf',
+		'message'=>'Chao ban day la thong bao nguy hiem'	  
+	]);
+});
+
+Route::get('response/redirect/back',function(){
+	
+	return redirect()->back();
+});
+
+Route::get('response/download',function(){
+	$url="download/demo.rar";
+	return Response::download($url);
+});
+
+Route::get('response/downloadAndDelete',function(){
+	$url="download/demo.rar";
+	return Response::download($url)->deleteFileAfterSend(true);
+});
+
+Route::get('response/macro/cap', function(){
+	return response()->cap('khoa hoc lap trinh laravel');
+});
+
+Route::get('response/macro/contact', function(){
+	return response()->contact('http://hongtravel.com/response/macro/cap');
+});
