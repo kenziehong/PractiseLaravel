@@ -502,3 +502,8 @@ Route::get('response/macro/cap', function(){
 Route::get('response/macro/contact', function(){
 	return response()->contact('http://hongtravel.com/response/macro/cap');
 });
+
+//Ba 45 Tim hieu Authentication
+
+Route::get('authen/login',['as'=>'getLogin','uses'=>'ThanhVienController@getLogin']);
+Route::post('authen/login',['as'=>'postLogin','uses'=>'ThanhVienController@postLogin']);

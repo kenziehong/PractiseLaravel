@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call('KPTKhoaPhamTableSeeder');
+        $this->call('ThanhVienTableSeeder');
     }
 }
 
@@ -116,6 +116,18 @@ Class KPTKhoaPhamTableSeeder extends Seeder{
 			['monhoc'=>'Lap trinh PYTHON','giatien'=>23000,'giangvien'=>'Ms Ngoc'],
 			
 					
+		]);
+	}
+}
+
+
+Class ThanhVienTableSeeder extends Seeder{
+	public function run(){
+		DB::table('thanh_viens')->insert([
+			['user'=>'teo','pass'=>Hash::make(12345),'level'=>1],
+			['user'=>'tun','pass'=>Hash::make(12345),'level'=>2],
+			['user'=>'tuan','pass'=>bcrypt(12345),'level'=>2],
+			
 		]);
 	}
 }
