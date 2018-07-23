@@ -507,3 +507,12 @@ Route::get('response/macro/contact', function(){
 
 Route::get('authen/login',['as'=>'getLogin','uses'=>'ThanhVienController@getLogin']);
 Route::post('authen/login',['as'=>'postLogin','uses'=>'ThanhVienController@postLogin']);
+
+// Bai 47 
+
+// Route::get('authen/getRegistry',['as'=>'getRegistry','uses'=>'Auth\RegisterController@getRegistry']);
+// Route::post('authen/postRegistry',['as'=>'postRegistry','uses'=>'Auth\RegisterController@create']);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

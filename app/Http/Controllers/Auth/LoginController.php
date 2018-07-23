@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+// use App\Http\Requests\RegisterRequest;
+// use App\User;
+// use Hash;
 
 class LoginController extends Controller
 {
@@ -36,4 +39,20 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    // public function getRegistry(){
+    //     return view('auth.register');
+
+    // }
+    // public function postRegistry(RegisterRequest $request){
+    //     // echo $request->name; (khong chay duoc)
+
+    //     $thanhvien = new User;
+    //     $thanhvien->name= $request->name;
+    //     $thanhvien->email=$request->email;
+    //     $thanhvien->password=Hash::make($request->password);
+    //     $thanhvien->remember_token=$request->_token;
+    //     $thanhvien->save();
+
+    // }
 }
