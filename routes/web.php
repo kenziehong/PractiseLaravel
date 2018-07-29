@@ -516,3 +516,8 @@ Route::post('authen/login',['as'=>'postLogin','uses'=>'ThanhVienController@postL
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+//Bai 50 Tim hieu RESTful Controller
+
+Route::resource('hocsinh','HocSinhController'); 
